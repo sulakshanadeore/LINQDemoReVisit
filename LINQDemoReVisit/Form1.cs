@@ -16,8 +16,8 @@ namespace LINQDemoReVisit
         new Employee{ Empid=4,EmpName="Rajesh",Deptno=10,Salary=18888},
         new Employee{ Empid=5,EmpName="Ramesh",Deptno=10,Salary=277777},
         new Employee{ Empid=6,EmpName="Suresh",Deptno=30,Salary=34444 },
-            new Employee{ Empid=7,EmpName="Sowmya",Deptno=30,Salary=34444 },
-                new Employee{ Empid=8,EmpName="Suramya",Deptno=30,Salary=34444}
+       new Employee{ Empid=7,EmpName="Sowmya",Deptno=30,Salary=34444 },
+       new Employee{ Empid=8,EmpName="Suramya",Deptno=30,Salary=34444}
         };
 
 

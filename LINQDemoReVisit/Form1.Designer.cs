@@ -33,6 +33,7 @@
             listBox1 = new ListBox();
             listBox2 = new ListBox();
             listBox3 = new ListBox();
+            button3 = new Button();
             SuspendLayout();
             // 
             // button1
@@ -79,11 +80,22 @@
             listBox3.Size = new Size(254, 264);
             listBox3.TabIndex = 4;
             // 
+            // button3
+            // 
+            button3.Location = new Point(489, 35);
+            button3.Name = "button3";
+            button3.Size = new Size(94, 29);
+            button3.TabIndex = 5;
+            button3.Text = "Select Many";
+            button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1361, 524);
+            Controls.Add(button3);
             Controls.Add(listBox3);
             Controls.Add(listBox2);
             Controls.Add(listBox1);
@@ -101,5 +113,6 @@
         private ListBox listBox1;
         private ListBox listBox2;
         private ListBox listBox3;
+        private Button button3;
     }
 }

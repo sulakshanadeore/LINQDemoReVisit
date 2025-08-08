@@ -17,9 +17,42 @@ namespace LINQDemoReVisit
         new Employee{ Empid=5,EmpName="Ramesh",Deptno=10,Salary=277777},
         new Employee{ Empid=6,EmpName="Suresh",Deptno=30,Salary=34444 },
             new Employee{ Empid=7,EmpName="Sowmya",Deptno=30,Salary=34444 },
-                new Employee{ Empid=8,EmpName="Suramya",Deptno=30,Salary=34444,
+                new Employee{ Empid=8,EmpName="Suramya",Deptno=30,Salary=34444}
+        };
 
-        }
+
+
+
+        List<Department> deptlist = new List<Department>()
+        {
+        new Department{
+            Deptno=10,
+            Dname="HR",
+            EmpDept=new List<Employee>
+        {
+            new Employee{ Empid=1,EmpName="Aditi",Deptno=10,Salary=17777},
+         new Employee{ Empid=4,EmpName="Rajesh",Deptno=10,Salary=18888},
+        new Employee{ Empid=5,EmpName="Ramesh",Deptno=10,Salary=277777},}
+        },
+
+        new Department{  Deptno=20,
+            Dname="LND",
+            EmpDept=new List<Employee>
+        {
+            new Employee{ Empid=2,EmpName="Ram",Deptno=20,Salary=17777},
+         new Employee{ Empid=3,EmpName="Yash",Deptno=20,Salary=18888},
+        new Employee{ Empid=7,EmpName="Suyash",Deptno=20,Salary=277777},}
+        },
+
+        new Department{
+         Deptno=30,
+            Dname="Accounts",
+            EmpDept=new List<Employee>
+        {
+            new Employee{ Empid=6,EmpName="Ritik",Deptno=30,Salary=17777},
+         new Employee{ Empid=10,EmpName="Rupesh",Deptno=30,Salary=18888},
+        new Employee{ Empid=9,EmpName="Suma",Deptno=30,Salary=277777},}  }
+
 
         };
         private void button1_Click(object sender, EventArgs e)
@@ -61,9 +94,12 @@ namespace LINQDemoReVisit
         private void button2_Click(object sender, EventArgs e)
         {
             var result = emplist.GroupBy(emp => emp.Deptno).
-                Select(emp=> new { groupedDeptno = emp.Key,
-                    EmpCount=emp.Count(),
-                    EmployeesInDept=emp});
+                Select(emp => new
+                {
+                    groupedDeptno = emp.Key,
+                    EmpCount = emp.Count(),
+                    EmployeesInDept = emp
+                });
 
             foreach (var item in result)
             {
@@ -82,7 +118,7 @@ namespace LINQDemoReVisit
 
 
             var result2 = emplist.GroupBy(emp => emp.Deptno).
-               Select(emp => new {  emp.Key,empcount=Convert.ToInt32(emp.Count()),  emp });
+               Select(emp => new { emp.Key, empcount = Convert.ToInt32(emp.Count()), emp });
             foreach (var item in result2)
             {
                 listBox2.Items.Add("Deptno= " + item.Key + " EmpCount= " + item.empcount);
@@ -104,10 +140,15 @@ namespace LINQDemoReVisit
 
             var result1 = from emp in emplist
                           group emp by emp.Deptno into groupedon
-                          select new {groupedDeptno= groupedon.Key, EmpCount=groupedon.Count(), 
-                              EmployeesInDept=groupedon   };
+                          select new
+                          {
+                              groupedDeptno = groupedon.Key,
+                              EmpCount = groupedon.Count(),
+                              EmployeesInDept = groupedon
+                          };
 
-            foreach (var item in result1) {
+            foreach (var item in result1)
+            {
                 listBox3.Items.Add("Deptno= " + item.groupedDeptno + " EmpCount= " + item.EmpCount);
                 foreach (var item1 in item.EmployeesInDept)
                 {
@@ -125,6 +166,37 @@ namespace LINQDemoReVisit
 
 
 
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            var res1 = deptlist.SelectMany(e => e.EmpDept);
+
+            foreach (var item in res1)
+            {
+                listBox1.Items.Add(item.Empid);
+                listBox1.Items.Add(item.EmpName);
+                listBox1.Items.Add(item.Salary);
+                listBox1.Items.Add(item.Deptno);
+             //dname not avialble
+
+            }
+           var result = deptlist.SelectMany(e=>e.EmpDept,
+                (d,e)=>new {e.Deptno,d.Dname,emplist=d.EmpDept });
+
+            foreach (var item in result)
+            {
+                listBox3.Items.Add(item.Dname);
+                listBox3.Items.Add(item.Deptno);
+                foreach (var item1 in item.emplist)
+                {
+                    listBox3.Items.Add(item1.EmpName);
+                    listBox3.Items.Add(item1.Empid);
+                    listBox3.Items.Add(item1.Salary);
+
+
+                }
+            }
         }
     }
 }
